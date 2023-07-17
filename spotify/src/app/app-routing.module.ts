@@ -4,7 +4,11 @@ import { ExampleComponent } from './example/example.component';
 
 const routes: Routes = [
 {
-  path:'',
+  path:'', //TODO: localhost:4200/
+  loadChildren:()=> import('./modules/home/home.module').then(m => m.HomeModule)
+},
+{
+  path:'example',
   component: ExampleComponent
 }
 

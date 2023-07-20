@@ -18,12 +18,12 @@
 <!-- ZONE TEMPLATES -->
 
 <ng-template #artistZone>
-    <div class="artist-inside">
+    <div class="artist-inside" >
 
-        <img [src]="mockOver.cover" alt="" class="cover">
+        <img [src]="mockCover.cover" alt="" class="cover">
         <div class="track-info">
-            <h3 class="track-title">{{mockOver.name}}</h3>
-            <h5 class="track-title sub-title">{{mockOver?.album}}</h5>
+            <h3 class="track-title">{{mockCover.name}}</h3>
+            <h5 class="track-title sub-title">{{mockCover.album}}</h5>
         </div>
         <div class="track-like">
             <button class="btn-like">
@@ -39,14 +39,25 @@
             <button class="arrow btn">
                 <i class="uil uil-previous"></i>
             </button>
-           
+            <button  class="play btn">
+                <i [ngClass]="{
+                    'uil-play-circle':state === 'paused',
+                    'uil-pause-circle':state !== 'paused'
+                }" class="uil "></i>
+
+            </button>
             <button class="arrow btn">
                 <i class="uil uil-step-forward"></i>
             </button>
         </div>
         <div class="media-linetime">
 
-            
+            <div class="time">00</div>
+            <span #progressBar class="time-progress">
+                <span class="time-progress-live" [style.width]="10+'%'">
+                </span>
+            </span>
+            <div class="time">{{99}}</div>
         </div>
     </div>
 </ng-template>

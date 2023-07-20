@@ -1,41 +1,28 @@
 import { Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { Subscription } from 'rxjs'; //TODO: Programacion reactiva!
+import { TrackModel } from 'src/app/core/models/tracks.model';
 
 @Component({
   selector: 'app-media-player',
   templateUrl: './media-player.component.html',
   styleUrls: ['./media-player.component.css']
 })
-export class MediaPlayerComponent implements OnInit, OnDestroy {
+export class MediaPlayerComponent implements OnInit {
   @ViewChild('progressBar') progressBar: ElementRef = new ElementRef('')
   listObservers$: Array<Subscription> = []
   state: string = 'paused'
-  mockOver: any={
+  mockCover: TrackModel={
     cover:'',
     album:'Sarasa',
-    name: 'Bebe'
+    name: 'Bebe',
+    url:'https://i.scdn.co/image/ab67616d0000b27345ca41b0d2352242c7c9d4bc',
+    _id: 1
   }
   ngOnInit(): void {
 
   }
 
-  ngOnDestroy(): void {
-    this.listObservers$.forEach(u => u.unsubscribe())
-    console.log('🔴🔴🔴🔴🔴🔴🔴 BOOM!');
-  }
-
-
-  handlePosition(event: MouseEvent): void {
-    const elNative: HTMLElement = this.progressBar.nativeElement
-    const { clientX } = event
-    const { x, width } = elNative.getBoundingClientRect()
-    const clickX = clientX - x //TODO: 1050 - x
-    const percentageFromX = (clickX * 100) / width
-    console.log(`Click(x): ${percentageFromX}`);
-    
-
-  }
 
 
 }

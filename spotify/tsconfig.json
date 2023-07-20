@@ -23,6 +23,7 @@
       "@example/*": ["src/app/example/*"],
       "@modules/*": ["src/app/modules/*"],
       "@shared/*": ["src/app/shared/*"],
+      "@core/*": ["src/app/core/*"],
 
     },
     "useDefineForClassFields": false,

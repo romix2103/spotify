@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TracksPageComponent } from '@modules/tracks/pages/tracks-page/tracks-page.component';
+import { FavoritePageComponent } from './pages/favorite-page/favorite-page.component';
 
 const routes: Routes = [
-{
-  path:'',
-  component: TracksPageComponent
-}
-
+  {
+    path: '',
+    component: FavoritePageComponent,
+    outlet: 'child'
+  }
 ];
 
 @NgModule({

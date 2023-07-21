@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { SharedModule } from '@shared/shared.module';
+import { FavoritePageComponent } from '@modules/favorites/pages/favorite-page/favorite-page.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { SharedModule } from '@shared/shared.module';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    SharedModule
+    SharedModule,
+    
   ]
 })
 export class HomeModule { }

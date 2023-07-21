@@ -1,0 +1,21 @@
+<div class="play-list-body">
+    <ul class="play-list-table-header">
+        
+        <li>fecha incorporación 🍌😁</li>
+        <li><i class="uil uil-clock-eight"></i></li>
+    </ul>
+    
+</div>
+
+<!--template del cover-->
+<ng-template #coverSection let-track="track">
+
+    <div class="cover-section">
+        <img appImgBroken class="cover-track" [src]="track.cover" [alt]="track.name">
+        <div class="cover-info">
+            <div class="name-track">{{track.name}}</div>
+            <div class="name-track-details">{{track.artist.name}}</div>
+        </div>
+    </div>
+
+</ng-template>

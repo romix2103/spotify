@@ -11,7 +11,7 @@ import { ExampleComponent } from './example/example.component';
     ExampleComponent,
         
   ],
-  imports: [
+  imports: [ //solo modulos
     BrowserModule,
     AppRoutingModule
   ],

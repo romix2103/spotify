@@ -4,17 +4,18 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { SidebarComponent } from '@shared/components/sidebar/sidebar.component';
 
 const routes: Routes = [
+  {
+    path:'favoritos',
+    loadChildren:() => import('@modules/favorites/favorites.module').then(m => m.FavoritesModule)
+   },
    {
     path:'tracks',
-    loadChildren:() => import('@modules/tracks/tracks-routing.module').then(m => m.TracksRoutingModule)
+    loadChildren:() => import('@modules/tracks/tracks.module').then(m => m.TracksModule)
    },
-   {
-    path:'favorit',
-    loadChildren:() => import('@modules/favorites/favorites-routing.module').then(m => m.FavoritesRoutingModule)
-   },
+  
    {
     path:'history',
-    loadChildren:() => import('@modules/history/history-routing.module').then(m => m.HistoryRoutingModule)
+    loadChildren:() => import('@modules/history/history.module').then(m => m.HistoryModule)
    },
 ];
 

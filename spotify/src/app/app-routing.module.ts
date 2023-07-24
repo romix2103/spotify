@@ -13,10 +13,6 @@ const routes: Routes = [
   path:'', //TODO: localhost:4200/
   component: HomePageComponent,
   loadChildren:()=> import('./modules/home/home.module').then(m => m.HomeModule)
-},
-{
-  path:'example',
-  component: ExampleComponent
 }
 
 ];

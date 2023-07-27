@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouteReuseStrategy, Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +12,8 @@ export class SidebarComponent implements OnInit{
  ]
   mainMenu: {defaultOptions: Array<any>, accessLink: Array<any>}=
   {defaultOptions: [], accessLink:[]}
-  constructor(){}
+  customOptions: Array<any>=[]
+  constructor(private router: Router){}
   ngOnInit(): void{
     this.mainMenu.defaultOptions = [
       {
@@ -27,7 +29,7 @@ export class SidebarComponent implements OnInit{
       {
         name: 'Tu biblioteca',
         icon: 'uil uil-chart',
-        router: ['/', 'favorites'],
+        router: ['/', 'favoritos'],
         query: { hola: 'mundo' }
       }
     ]
@@ -42,7 +44,14 @@ export class SidebarComponent implements OnInit{
         icon: 'uil-heart-medical'
       }
     ]
+    this.customOptions = [
+      {
+        name: 'List1',
+        router: ['/']
+      },
 
+    ]
+    
   }
 
 }

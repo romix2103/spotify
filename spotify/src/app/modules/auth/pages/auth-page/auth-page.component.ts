@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import { AuthService } from '@modules/auth/services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-auth-page',
   templateUrl: './auth-page.component.html',
@@ -9,7 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class AuthPageComponent implements OnInit{
 formLogin: FormGroup = new FormGroup({})
-constructor(private asAtuthService: AuthService, private cookie: CookieService){}
+constructor(private asAtuthService: AuthService, private cookie: CookieService, private router: Router){}
 errorSession: boolean = false
   ngOnInit(): void {
   this.formLogin = new FormGroup({
@@ -25,7 +26,7 @@ errorSession: boolean = false
   }
     
   )
-console.log('hola')
+//console.log('hola')
   
 }
 sendLogin():void{
@@ -35,6 +36,7 @@ sendLogin():void{
     console.log("sesion correcta")
     const {tokensession, data} = response
     this.cookie.set('token', tokensession, 4, '/')
+    this.router.navigate(['/', 'tracks'])
   },
   error =>{
     this.errorSession = true

@@ -13,20 +13,12 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
   @ViewChild('progressBar') progressBar: ElementRef = new ElementRef('')
   listObservers$: Array<Subscription> = []
   state: string = 'paused'
-  mockCover: TrackModel={
-    cover:'',
-    album:'Sarasa',
-    name: 'Bebe',
-    url:'https://i.scdn.co/image/ab67616d0000b27345ca41b0d2352242c7c9d4bc',
-    _id: 1
-  }
-  constructor(private multimediaService : MultimediaService){}
+  mockCover!: TrackModel;
+  constructor(public multimediaService : MultimediaService){}
   ngOnInit(): void {
-    const observer1$: Subscription = this.multimediaService.callback.subscribe(
-      (response: TrackModel)=>{
-        console.log("recibiendo cancion..", response)
-      }
-    )
+    // this.multimediaService.trackInfo$.subscribe(res =>{
+    //   console.log("debo reproducir esta cancion", res)
+    // })
   }
   ngOnDestroy(): void {
     this.listObservers$.forEach(u => u.unsubscribe())

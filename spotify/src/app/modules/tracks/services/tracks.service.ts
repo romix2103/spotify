@@ -21,6 +21,7 @@ export class TracksService {
    }
 
    getAllTracks$(): Observable<any>{
+    console.log("hola soy la url", this.URL)
     return this.httpClient.get(`${this.URL}/tracks`)
     .pipe(
       map((dataRow: any) => {
@@ -30,6 +31,7 @@ export class TracksService {
     //concatenar
    }
    getAllRandom$(): Observable<any>{
+    console.log("trackService url", this.URL)
     return this.httpClient.get(`${this.URL}/tracks`)
     .pipe(
       mergeMap(({data}: any) => this.skipById(data, 1) 

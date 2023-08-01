@@ -16,6 +16,8 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
   mockCover!: TrackModel;
   constructor(public multimediaService : MultimediaService){}
   ngOnInit(): void {
+    const observer$ = this.multimediaService.playerStatus$
+    .subscribe(status => this.state = status)
     // this.multimediaService.trackInfo$.subscribe(res =>{
     //   console.log("debo reproducir esta cancion", res)
     // })
@@ -23,6 +25,14 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.listObservers$.forEach(u => u.unsubscribe())
   }
+  handlePosition(event: MouseEvent): void{
+    const {clientX} = event
+    const elNative : HTMLElement = this.progressBar.nativeElement
+    const{ x, width} = elNative.getBoundingClientRect()
 
+    const clickX = clientX - x;
+    const percentageFromX = (clickX * 100) / width
+    this.multimediaService.seekAudio(percentageFromX)
+  }
 
 }

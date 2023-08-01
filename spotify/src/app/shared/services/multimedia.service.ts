@@ -13,6 +13,9 @@ export class MultimediaService {
  public audio!: HTMLAudioElement 
  public timeElapsed$: BehaviorSubject<string> = new BehaviorSubject('00:00')
  public timeRemaining$: BehaviorSubject<string> = new BehaviorSubject('-00:00')
+ public playerStatus$: BehaviorSubject<string> = new BehaviorSubject('paused')
+ public playerPercentage$: BehaviorSubject<number> = new BehaviorSubject(0)
+
  
  constructor() {
     this.audio = new Audio()
@@ -54,7 +57,12 @@ export class MultimediaService {
 
    private listenAllEvents():void{
     this.audio.addEventListener('timeupdate' , this.calculateTime, false)
-   }
+    this.audio.addEventListener('playing' , this.setPlayerSatus, false)
+    this.audio.addEventListener('play' , this.setPlayerSatus, false)
+    this.audio.addEventListener('pause' , this.setPlayerSatus, false)
+    this.audio.addEventListener('ended' , this.setPlayerSatus, false)
+
+  }
 
    private setTimeElapsed(currentTime: number):void{
       let seconds = Math.floor(currentTime % 60)
@@ -81,8 +89,45 @@ export class MultimediaService {
    private calculateTime = () => {
       console.log('Disparando evento')
       const {duration, currentTime} = this.audio
-      console.table([duration, currentTime])
+      //console.table([duration, currentTime])
       this.setTimeElapsed(currentTime)
       this.setTimeRemaining(currentTime, duration)
+      this.setPercentage(currentTime, duration)
    }
+   private setPlayerSatus = (state: any) => {
+    console.log('status',state)
+    switch (state.type){
+        case 'play':
+        this.playerStatus$.next('play')
+        break
+        
+        case 'playing':
+        this.playerStatus$.next('playing')
+        break
+
+        case 'ended':
+        this.playerStatus$.next('ended')
+        break
+
+        default:
+        this.playerStatus$.next('paused')
+        break
+    }
+ }
+
+ public togglePlayer():void{
+  (this.audio.paused) ? this.audio.play() : this.audio.pause()
+ }
+
+ private setPercentage(currentTime: number, duration: number): void{
+  let percentage = (currentTime*100)/duration
+  this.playerPercentage$.next(percentage)
+ }
+
+ public seekAudio(percentage: number): void
+  {
+    const {duration} = this.audio
+    const percentageToSecond = (percentage*duration)/100
+    this.audio.currentTime = percentageToSecond
+  }
 }

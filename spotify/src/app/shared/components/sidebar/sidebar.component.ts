@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouteReuseStrategy, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,13 +14,15 @@ export class SidebarComponent implements OnInit{
   mainMenu: {defaultOptions: Array<any>, accessLink: Array<any>}=
   {defaultOptions: [], accessLink:[]}
   customOptions: Array<any>=[]
-  constructor(private router: Router){}
+  
+  constructor(private router: Router, private cookie: CookieService){}
+  private rol = this.cookie.get('rol')
   ngOnInit(): void{
     this.mainMenu.defaultOptions = [
       {
         name: 'Home',
         icon: 'uil uil-estate',
-        router: ['/', 'auth']
+        router: ['/', 'tracks']
       },
       {
         name: 'Buscar',
@@ -31,9 +34,24 @@ export class SidebarComponent implements OnInit{
         icon: 'uil uil-chart',
         router: ['/', 'favoritos'],
         query: { hola: 'mundo' }
-      }
+      },
+      // {
+      //   name: 'Administración',
+      //   icon: 'uil uil-setting',
+      //   router: ['/', 'admin']
+      // },
     ]
-
+    console.log(this.rol , "soy el rol en el menu")
+    if(this.rol == "admin"){
+      this.mainMenu.defaultOptions.push(
+        {
+          name: 'Administración',
+          icon: 'uil uil-setting',
+          router: ['/', 'admin']
+        }
+      )
+    }
+    
     this.mainMenu.accessLink = [
       {
         name: 'Crear lista',
@@ -46,9 +64,10 @@ export class SidebarComponent implements OnInit{
     ]
     this.customOptions = [
       {
-        name: 'List1',
-        router: ['/']
-      },
+        name: 'Cerrar Sesión',
+        icon: 'uil uil-signout',
+        router: ['/', 'auth']
+      }
 
     ]
     

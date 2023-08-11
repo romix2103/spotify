@@ -1,0 +1,88 @@
+<div class="admin-page">
+    <h1>Agregar Canción</h1>
+      <form (ngSubmit)="sendAbm()" [formGroup]="formCanciones">
+        <div class="song-details">
+            <div class="song-info">
+                <label for="cancion"> Canción:</label>
+                <br/>
+                <input formControlName="cancion" [(ngModel)]="cancion" placeholder="Nombre de la Canción">
+                
+            </div>
+            <div class="song-info">
+                <label for="album"> Album:</label>
+                <br/>
+                <input formControlName="album" [(ngModel)]="album"  placeholder="Nombre del álbum">
+                
+            </div>
+            <div class="song-info">
+                <label for="cover"> Cover:</label>
+                <br/>
+                <input formControlName="cover" [(ngModel)]="cover"  placeholder="Nombre del cover">
+                
+            </div>
+            <div class="song-info">
+                <label for="artist"> Artista:</label>
+                <br/>
+                <input formControlName="artist" [(ngModel)]="artist" placeholder="Nombre del Artista">
+                
+            </div>
+            <div class="song-info">
+                <label for="idSong"> Id:</label>
+                <br/>
+                <input formControlName="idSong" [(ngModel)]="idSong" placeholder="Id">
+                
+            </div>
+        </div>
+              
+        <div class="form-action">
+            <button class="add-btn" (click)="submitForm()">Agregar</button>
+        </div>
+    </form>
+    <div *ngIf="mostrarLoading" class="image-loading" id="gifLoading">
+        <img style="width: 100px;" src="https://i.gifer.com/ZZ5H.gif"/>
+    </div>
+    <div *ngIf="mostrarTracks" class="section-list-body">
+        
+        <div id="">
+        <ul class="play-list-table-header">
+            <li class="menu_links" (click)="changeSort('name')">Nombre ❤</li>
+            <li class="menu_links" (click)="changeSort('album')">Album 🆗</li>
+            <li>Eliminar</li>
+            <li>Editar</li>
+            
+        </ul>
+        <ul class="play-list-rows" *ngFor="let track of tracksTrending|orderList: optionSort.property: optionSort.order">
+            <li class="track-name">
+                <ng-container *ngTemplateOutlet="coverSection;context:{track:track}"></ng-container>
+            </li>
+            <li class="track-name-opacity">
+                {{track.album}}
+            </li>
+            <li class="track-name-opacity" id={{track.uid}} (click)="deleteTrack(track)">
+                <i class="uil uil-trash-alt menu_links"></i>
+            </li>
+            <li class="track-name-opacity" (click)="fillInputs(track)">
+                <i class="uil uil-edit menu_links"></i>
+            </li>
+    
+        </ul>
+    </div>
+    </div>
+    
+    <!--template del cover-->
+    <ng-template #coverSection let-track="track">
+    
+        <div class="cover-section">
+            
+            <img appImgBroken [customImg]="'https://cdn.freebiesupply.com/logos/large/2x/angular-icon-1-logo-png-transparent.png'" class="cover-track" [src]="track.cover" [alt]="track.name">
+            <div class="cover-info">
+                <div class="name-track">{{track.name}}</div>
+                <div class="name-track-details">{{track.artist.name}}</div>
+            </div> 
+        </div>
+    
+    </ng-template>
+    <!-- [dataTracks]="tracksTrending" -->
+</div>
+
+

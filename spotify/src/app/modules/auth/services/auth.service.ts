@@ -12,24 +12,14 @@ import {CookieService} from 'ngx-cookie-service'
 })
 export class AuthService {
   private readonly URL = environment.api
-  constructor(private http: HttpClient, private cookie: CookieService) { }
+  constructor(private http: HttpClient) { }
 
-  //todo observable necesita una suscripción
   sendCredentials(email: string, password: string): Observable<any> {
-    
     const body = {
       email,
       password
     }
-    console.log(environment)
-    return this.http.post(`${this.URL}/auth/login`, body).pipe(tap(
-      (responseOk: any) =>{
-      const {tokensession, data} = responseOk
-      this.cookie.set('token_servicio', tokensession, 4, '/')
-    }
-     
-
-      ))
+    return this.http.post(`${this.URL}/auth/login`, body)
   }
 
   suma(a: number, b: number): number {

@@ -19,6 +19,6 @@ export class HistoryPageComponent implements OnInit{
 
     console.log("Estoy en padre", event)
     this.listResults$ = this.searchService.searchTracks$(event)
-    
+    console.log("los resultados del search", this.listResults$)
   }
 }

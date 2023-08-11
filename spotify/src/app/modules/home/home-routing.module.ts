@@ -17,6 +17,10 @@ const routes: Routes = [
     path:'history',
     loadChildren:() => import('@modules/history/history.module').then(m => m.HistoryModule)
    },
+   {
+    path:'admin',
+    loadChildren:() => import('@modules/admin/admin.module').then(m => m.AdminModule)
+   },
 ];
 
 @NgModule({

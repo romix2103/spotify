@@ -13,6 +13,7 @@ formLogin: FormGroup = new FormGroup({})
 constructor(private asAtuthService: AuthService, private cookie: CookieService, private router: Router){}
 errorSession: boolean = false
   ngOnInit(): void {
+    this.vaciarCookie()
   this.formLogin = new FormGroup({
     email: new FormControl('',[
       Validators.required,
@@ -32,14 +33,29 @@ errorSession: boolean = false
 sendLogin():void{
   const {email, password} = this.formLogin.value
   this.asAtuthService.sendCredentials(email, password)
-  .subscribe(response => {
-    console.log("sesion correcta")
-    const {tokensession, data} = response
-    this.cookie.set('token', tokensession, 4, '/')
-    this.router.navigate(['/', 'tracks'])
-  },
-  error =>{
-    this.errorSession = true
-  })
+  .subscribe({
+    next: (v) => {
+      
+      const {tokenSession, data} = v
+      console.log("soy la data", data.role)
+      this.cookie.set('token', tokenSession, 4, '/')
+      this.cookie.set('rol', data.role, 4, '/')
+      
+      tokenSession != undefined? this.router.navigate(['/', 'tracks']) : this.errorSession = true
+      //this.router.navigate(['/', 'tracks'])
+    },
+    error: (e) => {
+      console.log("error", e)
+      this.errorSession = true
+    },
+    complete: () => {
+      
+    }
+})
 }
+vaciarCookie(){
+  console.log("entró a limpiar token")
+  this.cookie.delete('token')
+}
+
 }

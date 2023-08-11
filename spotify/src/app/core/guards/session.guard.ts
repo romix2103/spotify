@@ -7,9 +7,11 @@ import{CookieService} from 'ngx-cookie-service';
 })
 //revisa las cookies
 export class PermissionsService{
- constructor(private cookieService: CookieService, public router: Router){}
+ constructor(private cookie: CookieService, public router: Router){}
  canActivate(): boolean{
-  if(this.cookieService.check('token')){
+  //console.log("cookie", this.cookie.check('token'))
+  if(this.cookie.check('token')){
+    //console.log("pasó", this.cookie)
     return true
   }else{
     console.log("no pasas")

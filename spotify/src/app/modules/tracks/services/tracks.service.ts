@@ -1,18 +1,21 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import{Observable, of} from 'rxjs'
 import{catchError, map, mergeMap} from 'rxjs/operators'
 import { environment } from 'src/environments/environment.development';
 import { TracksModule } from '../tracks.module';
 import { TrackModel } from '@core/models/tracks.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TracksService {
   private readonly URL = environment.api;
-  constructor(private httpClient: HttpClient) { 
+  constructor(private httpClient: HttpClient, private cookie: CookieService) { 
    }
+   private sessionToken = this.cookie.get('token')
+   
    private skipById(listTracks: TrackModel[], id: number): Promise<TrackModel[]>{
     return new Promise((resolve, reject) =>{
       const listTmp = listTracks.filter(a => a._id != id)
@@ -21,10 +24,12 @@ export class TracksService {
    }
 
    getAllTracks$(): Observable<any>{
-    console.log("hola soy la url", this.URL)
-    return this.httpClient.get(`${this.URL}/tracks`)
+    console.log("hola httpClient", this.httpClient)
+    const headers = new HttpHeaders({'authorization' : `Bearer ${this.sessionToken}`})
+    return this.httpClient.get(`${this.URL}/tracks` , {headers})
     .pipe(
       map((dataRow: any) => {
+        console.log("retorno de tracks", dataRow)
         return dataRow.data
       })
     )
@@ -32,7 +37,8 @@ export class TracksService {
    }
    getAllRandom$(): Observable<any>{
     console.log("trackService url", this.URL)
-    return this.httpClient.get(`${this.URL}/tracks`)
+    const headers = new HttpHeaders({'authorization' : `Bearer ${this.sessionToken}`})
+    return this.httpClient.get(`${this.URL}/tracks`, {headers})
     .pipe(
       mergeMap(({data}: any) => this.skipById(data, 1) 
       //,

@@ -10,6 +10,7 @@ import { PlayListHeaderComponent } from './components/play-list-header/play-list
 import { PlayListBodyComponent } from './components/play-list-body/play-list-body.component';
 import { OrderListPipe } from './pipe/order-list.pipe';
 import { ImgBrokenDirective } from './directives/img-broken.directive';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -25,12 +26,14 @@ import { ImgBrokenDirective } from './directives/img-broken.directive';
     PlayListBodyComponent,
     OrderListPipe,
     ImgBrokenDirective,
-   
+      
 
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     SidebarComponent,
@@ -41,7 +44,8 @@ import { ImgBrokenDirective } from './directives/img-broken.directive';
     PlayListHeaderComponent,
     PlayListBodyComponent,
     OrderListPipe,
-    ImgBrokenDirective
+    ImgBrokenDirective,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }

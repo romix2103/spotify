@@ -6,5 +6,7 @@ export interface TrackModel{
     cover: string;
     url:string;
     _id: string|number;
-    artis?: ArtistModel
+    artis?: ArtistModel;
+    uid:string;
+    artist: string
 }

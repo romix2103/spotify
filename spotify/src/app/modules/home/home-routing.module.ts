@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { SidebarComponent } from '@shared/components/sidebar/sidebar.component';
+import { rolGuard } from '@core/guards/rol.guard';
 
 const routes: Routes = [
   {
@@ -19,7 +20,8 @@ const routes: Routes = [
    },
    {
     path:'admin',
-    loadChildren:() => import('@modules/admin/admin.module').then(m => m.AdminModule)
+    loadChildren:() => import('@modules/admin/admin.module').then(m => m.AdminModule),
+    canActivate: [rolGuard]
     //canActivate con el guard de la sesion rol = "admin"
    },
 ];

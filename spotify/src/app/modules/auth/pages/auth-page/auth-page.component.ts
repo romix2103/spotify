@@ -37,12 +37,18 @@ sendLogin():void{
     next: (v) => {
       
       const {tokenSession, data} = v
-      console.log("soy la data", data.role)
+      var rol = v.data
+      console.log("soy v ", rol)
       this.cookie.set('token', tokenSession, 4, '/')
-      this.cookie.set('rol', data.role, 4, '/')
+      if(rol != undefined){
+        this.cookie.set('rol', rol.role, 4, '/')
       
-      tokenSession != undefined? this.router.navigate(['/', 'tracks']) : this.errorSession = true
-      //this.router.navigate(['/', 'tracks'])
+        tokenSession != undefined? this.router.navigate(['/', 'tracks']) : this.errorSession = true
+  
+      }else{
+        this.errorSession = true
+      }
+            //this.router.navigate(['/', 'tracks'])
     },
     error: (e) => {
       console.log("error", e)
@@ -56,6 +62,7 @@ sendLogin():void{
 vaciarCookie(){
   console.log("entró a limpiar token")
   this.cookie.delete('token')
+  this.cookie.delete('rol')
 }
 
 }

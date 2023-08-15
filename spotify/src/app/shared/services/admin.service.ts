@@ -18,7 +18,7 @@ export class AdminService {
   private dataUpdated = new Subject<void>()
   dataUpdated$ = this.dataUpdated.asObservable()
   
-  AbmSong(name: string, album: string, cover: string, artist: string, id: number): Observable<any> {
+  AbmSong(name: string, album: string, cover: string, artist: string, id: string): Observable<any> {
     const body = {
       name,
       album,
@@ -28,7 +28,7 @@ export class AdminService {
    
     const headers = new HttpHeaders({'authorization' : `Bearer ${this.sessionToken}`})
 
-    if(id == 0){
+    if(id == ''){
       //alert("voy a insertar")
 
       return this.httpClient.post(`${this.URL}/tracks/add`, body, {headers})

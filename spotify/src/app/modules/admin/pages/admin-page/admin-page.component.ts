@@ -50,7 +50,7 @@ export class AdminPageComponent implements OnInit {
         
       ]),
       idSong: new FormControl('', [
-        Validators.required,
+        
         
       ]),
     }

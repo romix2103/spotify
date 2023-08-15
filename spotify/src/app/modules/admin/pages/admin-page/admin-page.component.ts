@@ -56,6 +56,7 @@ export class AdminPageComponent implements OnInit {
     }
       
     )
+    //esta lógica debe estar en un guard
     if(this.cookie.get('rol') != "admin"){
       this.cookie.set('token', '', 1, '/')
 

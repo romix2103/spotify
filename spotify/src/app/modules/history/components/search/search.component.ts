@@ -17,6 +17,9 @@ export class SearchComponent implements OnInit {
       this.callbackData.emit(term)
       console.log(this.src, term)
     }
-   
+    if(term.length == 0){
+      this.callbackData.emit(term)
+      console.log(this.src, term)
+    }
   }
 }
